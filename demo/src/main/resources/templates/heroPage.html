@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Questing Heroes - Hero page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h2 th:text="${hero.name}">name</h2>
+        <h3 th:text="${hero.status}">status</h3>
+        <span th:text="'Level: ' + ${hero.level}">level</span><br>
+        <span th:text="'Health: ' + ${hero.health}">health</span><br>
+        <span th:text="'Gold: ' + ${hero.gold}">gold</span><br>
+        <form method="get" action="/heroes">
+            <button>Back</button>
+        </form>
+        
+        <h2 th:if="${hero.health > 0}">Available Quests</h2>
+        <ul th:if="${hero.health > 0}">
+            <li th:each="quest : ${quests}">
+                <span th:text="${quest.name} + ' (difficulty ' + ${quest.difficulty} + ')'">quest</span>
+                <form method="post" action="/tryquest">
+                    <input type="hidden" id="hero" name="heroName" th:value="${hero.name}">
+                    <input type="hidden" id="quest" name="questName" th:value="${quest.name}">
+                    <button type="submit">Try Quest</button>
+                </form>
+            </li>
+        </ul>
+    </body>
+</html>

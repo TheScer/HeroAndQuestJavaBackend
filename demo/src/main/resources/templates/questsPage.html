@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Questing Heroes - Quests Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1>Available Quests</h1>
+            <ul>
+                <li th:each="quest : ${quests}">
+                    <span th:text="${quest.name} + ' (difficulty ' + ${quest.difficulty} + ')'">quest</span>
+                    <form method="post" action="/deletequest"> 
+                        <input type="hidden" name="questName" th:value="${quest.name}">
+                        <button>Delete</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <form  method="post" action="/quests">
+            <p>
+                <input type="text" name="questName" placeholder="New quest name..." required>
+                <input type="text" name="questDifficulty" placeholder="New quest difficulty..." required>
+                <button type="submit">Add New Quest</button>
+            </p>    
+        </form>
+        <form method="get" action="/">
+            <button type="submit">Back</button>
+        </form>
+    </body>
+</html>
